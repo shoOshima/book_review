@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { SignIn } from "../auth/pageComponent/SignIn";
 
 export const Router =() =>{
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -8,8 +9,9 @@ export const Router =() =>{
   return (
     <BrowserRouter>
     <Routes>
-      {/* <Route exact path="/signin" element={<SignIn />} />
-      <Route exact path="/signup" element={<SignUp />} />
+    <Route exact path="/" element={<SignIn />} />
+      <Route exact path="/signin" element={<SignIn />} />
+      {/* <Route exact path="/signup" element={<SignUp />} />
       {auth ? (
         <>
           <Route exact path="/" element={<Home />} />
@@ -30,3 +32,5 @@ export const Router =() =>{
   </BrowserRouter>
   )
 }
+
+export default Router;
