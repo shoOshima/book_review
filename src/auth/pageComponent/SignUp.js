@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
-import { Cookies,useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { url } from '../../const';
@@ -16,7 +16,6 @@ export const SignUp = () => {
   const [cookies, setCookies] = useCookies();
   const [imgfile, setImgFile] = useState();
   const [imgurl, setImgUrl] = useState('');
-  let token ;
 
   const {
     register,
@@ -34,24 +33,33 @@ export const SignUp = () => {
       .then((res) => {
         setCookies('token', res.data.token);
         dispatch(signIn());
-        navigate('/');
+        axios.post(
+          `${url}/uploads`,
+          {
+            icon: imgfile,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${res.data.token}`,
+              accept: 'application/json',
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
       })
       .catch((err) => {
         setErrorMessage(`新規登録に失敗しました。${err}`);
       });
-      axios.post(`${url}/uploads`,{     
-        icon:imgfile},{
-        headers: {
-          Authorization: `Bearer ${cookies.token}`,
-          accept:'application/json',
-          "Content-Type":"multipart/form-data"
-        }
-      });
   };
+
+  if (auth) return <Navigate to="/" />;
 
   const handleFileUp = (e) => {
     console.log(e.target.files[0]);
     let file = e.target.files[0];
+    if (!file) {
+      return;
+    }
     new Compressor(file, {
       maxHeight: 200,
       convertSize: Infinity,

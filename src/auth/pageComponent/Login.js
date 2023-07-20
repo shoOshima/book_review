@@ -10,7 +10,7 @@ import { signIn } from '../authSlice';
 export const Login = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState();
   const [cookies, setCookies, removeCookie] = useCookies();
@@ -34,13 +34,17 @@ export const Login = () => {
       });
   };
 
+  if (auth) return <Navigate to="/" />;
+
   return (
     <div>
       <main className="signin">
         <h2>ログイン</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="email-label" data-testid="Form-mail-label">メールアドレス</label>
+          <label className="email-label" data-testid="Form-mail-label">
+            メールアドレス
+          </label>
           <br />
           <input
             className="email-input"
@@ -61,7 +65,9 @@ export const Login = () => {
             </span>
           )}
           <br />
-          <label className="password-label"  data-testid="Form-pass-label">パスワード</label>
+          <label className="password-label" data-testid="Form-pass-label">
+            パスワード
+          </label>
           <br />
           <input
             type="password"
@@ -71,7 +77,11 @@ export const Login = () => {
             {...register('password', { required: true })}
           />
           <br />
-          <button type="submit" className="signin-button" data-testid="Form-submit">
+          <button
+            type="submit"
+            className="signin-button"
+            data-testid="Form-submit"
+          >
             ログイン
           </button>
         </form>

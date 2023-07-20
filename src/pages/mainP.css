@@ -1,0 +1,28 @@
+h1 {
+  margin: 20px;
+  padding-top: 30px;
+}
+
+.book {
+  margin: 10px;
+  border: solid;
+  height: auto;
+  padding: 10px;
+  text-align: left;
+}
+
+.book__header {
+  font-size: large;
+  font-weight: bold;
+}
+
+.book__body {
+}
+
+.book__imgwraper {
+  float: right;
+}
+
+.book__img {
+  height: 6rem;
+}

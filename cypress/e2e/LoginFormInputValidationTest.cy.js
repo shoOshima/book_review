@@ -9,7 +9,8 @@ describe('Mail_Vali', () => {
     cy.visit('/')
     cy.get('[data-testid="Form-input-mail"]').type('testmail')
     cy.get('[data-testid="Form-submit"]').click()
-    cy.get('[data-testid="Form-input-mail-valierror"]')
+    cy.get('[data-testid="Form-input-mail-valierror"]').should('be.visible')
+    expect(loc.pathname).to.eq('/')
   })
 
   it('pass', () => {
